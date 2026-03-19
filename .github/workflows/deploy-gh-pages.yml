@@ -35,6 +35,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
+          # GitHub Pages (Jekyll) ignores folders starting with "_" (e.g. /_next).
+          # This creates a .nojekyll file so JS/CSS assets are served correctly.
+          enable_jekyll: false
           # Si el sitio está en la raíz (username.github.io), descomenta y usa:
           # publish_branch: main
           # destination_dir: .
