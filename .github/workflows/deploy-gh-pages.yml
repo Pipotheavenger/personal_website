@@ -24,12 +24,28 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Compute Pages base path
+        id: pages
+        shell: bash
+        env:
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+        run: |
+          if [[ -n "${CUSTOM_DOMAIN}" ]]; then
+            echo "base_path=" >> "$GITHUB_OUTPUT"
+            echo "cname=${CUSTOM_DOMAIN}" >> "$GITHUB_OUTPUT"
+            echo "mode=custom-domain" >> "$GITHUB_OUTPUT"
+          else
+            echo "base_path=/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+            echo "cname=" >> "$GITHUB_OUTPUT"
+            echo "mode=project-pages" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         run: npm run build
         env:
-          # Project Pages: https://username.github.io/<repo>/
-          GITHUB_PAGES_BASE: /${{ github.event.repository.name }}
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # If CUSTOM_DOMAIN is set, build for root (/). Otherwise build for /<repo>/.
+          GITHUB_PAGES_BASE: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -39,6 +55,8 @@ jobs:
           # GitHub Pages (Jekyll) ignores folders starting with "_" (e.g. /_next).
           # This creates a .nojekyll file so JS/CSS assets are served correctly.
           enable_jekyll: false
+          # When using a custom domain, publish CNAME automatically.
+          cname: ${{ steps.pages.outputs.cname }}
           # Si el sitio está en la raíz (username.github.io), descomenta y usa:
           # publish_branch: main
           # destination_dir: .
