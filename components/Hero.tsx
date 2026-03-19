@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { site } from '@/lib/content';
 
-const profileImage = 'assets/header.png';
+const profileImage = '/assets/header.png';
 
 export function Hero() {
   return (
