@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F9F7F2;
+  --foreground: #1c1917;
+  --muted: #57534e;
+  --accent: #1c1917;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0c0a09;
+    --foreground: #fafaf9;
+    --muted: #a8a29e;
+    --accent: #fafaf9;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Pill shape for buttons and containers */
+.pill {
+  @apply rounded-full;
+}
+
+/* Section spacing consistent */
+.section-padding {
+  @apply py-20 md:py-28 lg:py-32;
+}
+
+.container-narrow {
+  @apply mx-auto max-w-6xl px-6 md:px-8 lg:px-12;
+}
+
+.container-wide {
+  @apply mx-auto max-w-7xl px-6 md:px-8 lg:px-12;
+}
