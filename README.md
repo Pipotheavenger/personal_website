@@ -1,6 +1,6 @@
 # Portfolio Profesional — Next.js (Static Export)
 
-Portfolio enterprise minimalista para **AI Engineer & Data Scientist**, construido con Next.js (App Router), TailwindCSS y exportación estática compatible con **GitHub Pages**.
+Portfolio minimalista orientado a conversión para **AI Engineer & Data Scientist**, construido con Next.js (App Router), TailwindCSS y exportación estática compatible con **GitHub Pages**.
 
 ---
 
@@ -13,26 +13,24 @@ personal_website/
 │   ├── page.tsx        # Página principal (todas las secciones)
 │   └── globals.css     # Estilos globales y Tailwind
 ├── components/
-│   ├── Header.tsx      # Navegación y menú móvil
+│   ├── Header.tsx      # Header simple (sin menú)
 │   ├── Hero.tsx        # Landing con foto y CTA
 │   ├── Metrics.tsx     # Estadísticas tipo enterprise
 │   ├── About.tsx       # Perfil profesional
 │   ├── Skills.tsx      # Data & AI, Engineering, Tools, Research
-│   ├── Experience.tsx  # Proyectos y impacto
+│   ├── Experience.tsx  # Experience + Projects (cards)
 │   ├── Certifications.tsx  # Diplomas y certificaciones
-│   ├── Portfolio.tsx   # Showcase visual de proyectos
-│   ├── CVSection.tsx   # Descarga de CVs
-│   ├── Hobbies.tsx     # Sección más humana
+│   ├── NewsHighlight.tsx # Mini-sección de noticia destacada
 │   └── Contact.tsx     # Email y LinkedIn
 ├── lib/
 │   └── content.ts      # Contenido centralizado (nombre, métricas, textos)
 ├── public/
 │   └── assets/
-│       ├── profile.jpg       # Foto de perfil (Hero)
-│       ├── cv/               # PDFs de CV (Research, Data_Science, IQUIM)
+│       ├── header.png        # Imagen principal (Hero)
 │       ├── diplomas/         # PDFs de diplomas y certificados
-│       ├── projects/         # Imágenes de proyectos (portfolio)
-│       └── hobbies/         # Imágenes de hobbies
+│       ├── sinfo.png         # Imagen noticia (NewsHighlight)
+│       ├── gallery/          # Galería de fotos (página /hobbies)
+│       └── hobbies/          # Imágenes legacy (no usadas actualmente)
 ├── next.config.js      # output: 'export', imágenes unoptimized
 ├── tailwind.config.ts
 ├── package.json
@@ -83,34 +81,26 @@ personal_website/
      ```
    - O configurar un GitHub Action que ejecute `npm run build` y suba `out/` a la rama que use GitHub Pages.
 
-### Opción B: Repo tipo `username.github.io/repo-name` (subruta)
+### Opción B: Repo tipo `username.github.io/repo-name` (subruta) — recomendado
 
 1. Crea el repo (ej. `personal_website`).
-2. Configura basePath para producción. Crea o edita `.env.production`:
-   ```
-   GITHUB_PAGES_BASE=/personal_website
-   ```
-   Y en `next.config.js` (ya está preparado):
-   - `basePath: process.env.GITHUB_PAGES_BASE || ''`
-   - `assetPrefix: process.env.GITHUB_PAGES_BASE || ''`
-3. Build:
-   ```bash
-   npm run build
-   ```
-4. Sube el **contenido** de `out/` a la rama `gh-pages` del repo (o la rama que tengas configurada en GitHub Pages).
-   - En GitHub: **Settings → Pages → Source**: rama `gh-pages` / carpeta root (o la carpeta donde hayas subido el contenido de `out/`).
-5. La URL final será: `https://username.github.io/personal_website/`.
+2. Este repo ya incluye un workflow (`.github/workflows/deploy-gh-pages.yml`) que:
+   - hace `next build` (static export)
+   - publica `out/` en la rama `gh-pages`
+3. En GitHub: **Settings → Pages**:
+   - Source: **Deploy from a branch**
+   - Branch: **gh-pages**
+   - Folder: **/(root)**
+4. La URL final será: `https://username.github.io/personal_website/` (ajusta `personal_website` por el nombre real del repo).
 
 ---
 
 ## Personalización
 
 - **Contenido**: Edita `lib/content.ts` (nombre, tagline, métricas, about, skills, experience, certificaciones, portfolio, CVs, hobbies, email, LinkedIn).
-- **Foto de perfil**: Sustituye `public/assets/profile.jpg`.
-- **CVs**: Añade o reemplaza PDFs en `public/assets/cv/` (Research, Data_Science, IQUIM) y actualiza la lista en `content.ts` si cambias nombres o categorías.
+- **Imagen principal (Hero)**: Sustituye `public/assets/header.png`.
 - **Diplomas/certificados**: Añade PDFs en `public/assets/diplomas/` y actualiza el array `certifications` en `content.ts`.
-- **Portfolio**: Imágenes en `public/assets/projects/`; títulos, descripciones y años en `content.ts`.
-- **Hobbies**: Imágenes en `public/assets/hobbies/` y textos en `content.ts`.
+- **Galería (/hobbies)**: Imágenes en `public/assets/gallery/` y textos en `hobbiesGallery` dentro de `content.ts`.
 
 ---
 
