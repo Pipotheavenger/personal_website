@@ -5,7 +5,8 @@ import {
   hobbiesGallery,
 } from '@/lib/content';
 
-const basePath = '/assets';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const basePath = `${BASE_PATH}/assets`;
 
 export const metadata = {
   title: 'Hobbies | Sebastián Valencia',

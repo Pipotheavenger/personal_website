@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const imageSrc = '/assets/sinfo.png';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const imageSrc = `${BASE_PATH}/assets/sinfo.png`;
 const sourceUrl =
   'https://ingenieria.uniandes.edu.co/es/noticias/sinfonia-logra-segundo-lugar-robocup-2023';
 

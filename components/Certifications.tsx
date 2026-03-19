@@ -1,6 +1,7 @@
 import { certifications } from '@/lib/content';
 
-const basePath = '/assets/diplomas';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const basePath = `${BASE_PATH}/assets/diplomas`;
 
 export function Certifications() {
   return (
