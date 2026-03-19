@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,7 +26,9 @@ jobs:
 
       - name: Build
         run: npm run build
-        # Si usas subruta (ej. /personal_website), crea .env.production con GITHUB_PAGES_BASE=/personal_website
+        env:
+          # Project Pages: https://username.github.io/<repo>/
+          GITHUB_PAGES_BASE: /${{ github.event.repository.name }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
