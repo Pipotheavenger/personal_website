@@ -9,7 +9,7 @@ export const site = {
 export const metrics = [
   { value: '3+', label: 'Years of experience' },
   { value: '40+', label: 'Projects delivered' },
-  { value: '55%', label: 'Process improvement (avg.)' },
+  { value: '35%', label: 'Process improvement (avg.)' },
   { value: '15+', label: 'Awards & certifications' },
 ];
 

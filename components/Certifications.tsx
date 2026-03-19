@@ -1,6 +1,6 @@
 import { certifications } from '@/lib/content';
 
-const basePath = '/assets/diplomas';
+const basePath = 'assets/diplomas';
 
 export function Certifications() {
   return (
